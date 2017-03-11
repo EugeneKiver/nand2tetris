@@ -1,11 +1,11 @@
-@10
+@10 // C_PUSH D_CONSTANT 10
 D=A
 @SP
 A=M
 M=D
 @SP
 M=M+1
-@LCL
+@LCL // C_POP D_LOCAL 0
 D=M
 @0
 D=D+A
@@ -17,21 +17,21 @@ D=M
 @R13
 A=M
 M=D
-@21
+@21 // C_PUSH D_CONSTANT 21
 D=A
 @SP
 A=M
 M=D
 @SP
 M=M+1
-@22
+@22 // C_PUSH D_CONSTANT 22
 D=A
 @SP
 A=M
 M=D
 @SP
 M=M+1
-@ARG
+@ARG // C_POP D_ARGUMENT 2
 D=M
 @2
 D=D+A
@@ -43,7 +43,7 @@ D=M
 @R13
 A=M
 M=D
-@ARG
+@ARG // C_POP D_ARGUMENT 1
 D=M
 @1
 D=D+A
@@ -55,14 +55,14 @@ D=M
 @R13
 A=M
 M=D
-@36
+@36 // C_PUSH D_CONSTANT 36
 D=A
 @SP
 A=M
 M=D
 @SP
 M=M+1
-@THIS
+@THIS // C_POP D_THIS 6
 D=M
 @6
 D=D+A
@@ -74,21 +74,21 @@ D=M
 @R13
 A=M
 M=D
-@42
+@42 // C_PUSH D_CONSTANT 42
 D=A
 @SP
 A=M
 M=D
 @SP
 M=M+1
-@45
+@45 // C_PUSH D_CONSTANT 45
 D=A
 @SP
 A=M
 M=D
 @SP
 M=M+1
-@THAT
+@THAT // C_POP D_THAT 5
 D=M
 @5
 D=D+A
@@ -100,7 +100,7 @@ D=M
 @R13
 A=M
 M=D
-@THAT
+@THAT // C_POP D_THAT 2
 D=M
 @2
 D=D+A
@@ -112,16 +112,16 @@ D=M
 @R13
 A=M
 M=D
-@510
+@510 // C_PUSH D_CONSTANT 510
 D=A
 @SP
 A=M
 M=D
 @SP
 M=M+1
-@R5
-D=M
-@11
+@5 // C_POP D_TEMP 6
+D=A
+@6
 D=D+A
 @R13
 M=D
@@ -131,88 +131,104 @@ D=M
 @R13
 A=M
 M=D
-@LCL
+@LCL // C_PUSH D_LOCAL 0
 D=M
 @0
-A=D+A
+D=D+A
+A=D
 D=M
 @SP
 A=M
 M=D
 @SP
 M=M+1
-@THAT
+@THAT // C_PUSH D_THAT 5
 D=M
 @5
-A=D+A
+D=D+A
+A=D
 D=M
 @SP
 A=M
 M=D
 @SP
 M=M+1
-@SP
-AM=M-1
+@SP // ADD
+D=M
+M=D-1
+A=M
 D=M
 A=A-1
 M=M+D
-@ARG
+@ARG // C_PUSH D_ARGUMENT 1
 D=M
 @1
-A=D+A
+D=D+A
+A=D
 D=M
 @SP
 A=M
 M=D
 @SP
 M=M+1
-@SP
-AM=M-1
+@SP // SUB
+D=M
+M=D-1
+A=M
 D=M
 A=A-1
 M=M-D
-@THIS
+@THIS // C_PUSH D_THIS 6
 D=M
 @6
-A=D+A
+D=D+A
+A=D
 D=M
 @SP
 A=M
 M=D
 @SP
 M=M+1
-@THIS
+@THIS // C_PUSH D_THIS 6
 D=M
 @6
-A=D+A
+D=D+A
+A=D
 D=M
 @SP
 A=M
 M=D
 @SP
 M=M+1
-@SP
-AM=M-1
+@SP // ADD
+D=M
+M=D-1
+A=M
 D=M
 A=A-1
 M=M+D
-@SP
-AM=M-1
+@SP // SUB
+D=M
+M=D-1
+A=M
 D=M
 A=A-1
 M=M-D
-@R5
-D=M
-@11
-A=D+A
+@5 // C_PUSH D_TEMP 6
+D=A
+@6
+D=D+A
+A=D
 D=M
 @SP
 A=M
 M=D
 @SP
 M=M+1
-@SP
-AM=M-1
+@SP // ADD
+D=M
+M=D-1
+A=M
 D=M
 A=A-1
 M=M+D
