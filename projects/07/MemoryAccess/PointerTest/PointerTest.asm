@@ -1,0 +1,141 @@
+@3030 // C_PUSH D_CONSTANT 3030
+D=A
+@SP
+A=M
+M=D
+@SP
+M=M+1
+@3 // C_POP D_POINTER 0
+D=A
+@0
+D=D+A
+@R13
+M=D
+@SP
+AM=M-1
+D=M
+@R13
+A=M
+M=D
+@3040 // C_PUSH D_CONSTANT 3040
+D=A
+@SP
+A=M
+M=D
+@SP
+M=M+1
+@3 // C_POP D_POINTER 1
+D=A
+@1
+D=D+A
+@R13
+M=D
+@SP
+AM=M-1
+D=M
+@R13
+A=M
+M=D
+@32 // C_PUSH D_CONSTANT 32
+D=A
+@SP
+A=M
+M=D
+@SP
+M=M+1
+@THIS // C_POP D_THIS 2
+D=M
+@2
+D=D+A
+@R13
+M=D
+@SP
+AM=M-1
+D=M
+@R13
+A=M
+M=D
+@46 // C_PUSH D_CONSTANT 46
+D=A
+@SP
+A=M
+M=D
+@SP
+M=M+1
+@THAT // C_POP D_THAT 6
+D=M
+@6
+D=D+A
+@R13
+M=D
+@SP
+AM=M-1
+D=M
+@R13
+A=M
+M=D
+@3 // C_PUSH D_POINTER 0
+D=A
+@0
+D=D+A
+A=D
+D=M
+@SP
+A=M
+M=D
+@SP
+M=M+1
+@3 // C_PUSH D_POINTER 1
+D=A
+@1
+D=D+A
+A=D
+D=M
+@SP
+A=M
+M=D
+@SP
+M=M+1
+@SP // ADD
+D=M
+M=D-1
+A=M
+D=M
+A=A-1
+M=M+D
+@THIS // C_PUSH D_THIS 2
+D=M
+@2
+D=D+A
+A=D
+D=M
+@SP
+A=M
+M=D
+@SP
+M=M+1
+@SP // SUB
+D=M
+M=D-1
+A=M
+D=M
+A=A-1
+M=M-D
+@THAT // C_PUSH D_THAT 6
+D=M
+@6
+D=D+A
+A=D
+D=M
+@SP
+A=M
+M=D
+@SP
+M=M+1
+@SP // ADD
+D=M
+M=D-1
+A=M
+D=M
+A=A-1
+M=M+D
