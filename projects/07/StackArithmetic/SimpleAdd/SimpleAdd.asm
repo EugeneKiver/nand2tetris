@@ -1,0 +1,21 @@
+@7 // C_PUSH D_CONSTANT 7
+D=A
+@SP
+A=M
+M=D
+@SP
+M=M+1
+@8 // C_PUSH D_CONSTANT 8
+D=A
+@SP
+A=M
+M=D
+@SP
+M=M+1
+@SP // ADD
+D=M
+M=D-1
+A=M
+D=M
+A=A-1
+M=M+D
