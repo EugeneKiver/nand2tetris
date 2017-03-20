@@ -126,10 +126,56 @@ A=M
 D=M
 A=A-1
 M=M-D
-@SP // SUB
+@LCL // RETURN START: *FRAME = *LCL
 D=M
-M=D-1
+@FRAME
+M=D
+@SP // *ARG=*(*SP-1) RETURN value placed
+M=M-1
 A=M
 D=M
-A=A-1
-M=M-D
+@ARG
+A=M
+M=D
+@ARG // *SP=*ARG+1
+D=M+1
+@SP
+M=D
+@FRAME // *THAT=*(FRAME-1)
+D=M
+@1
+D=D-A
+A=D
+D=M
+@THAT
+M=D
+@FRAME // *THIS=*(FRAME-2)
+D=M
+@2
+D=D-A
+A=D
+D=M
+@THIS
+M=D
+@FRAME // *ARG=*(FRAME-3)
+D=M
+@3
+D=D-A
+A=D
+D=M
+@ARG
+M=D
+@FRAME // *LCL=*(FRAME-4)
+D=M
+@4
+D=D-A
+A=D
+D=M
+@LCL
+M=D
+@FRAME // return to *(FRAME-5)
+D=M
+@5
+A=D-A
+A=M
+0; JMP
