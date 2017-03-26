@@ -58,11 +58,11 @@ set RAM[297] -1,
 set RAM[298] -1,
 set RAM[299] -1,
 
-set sp 261,
-set local 261,
-set argument 256,
-set this 3000,
-set that 4000;
+//set sp 261,
+//set local 261,
+//set argument 256,
+//set this 3000,
+//set that 4000;
 
 repeat 50 {
   vmstep;
