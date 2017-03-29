@@ -140,26 +140,26 @@ M=M+1
 
 // return
 @LCL
-D=M
-@frame
-M=D // FRAME = LCL
-@5
-D=D-A
-A=D
-D=M
-@ret
-M=D // RET = *(FRAME-5)
-@SP
-M=M-1
-A=M
-D=M
-@ARG
-A=M
-M=D // *ARG = pop
-@ARG
-D=M+1
-@SP
-M=D // SP = ARG+1
+D=M    // D=@LCL
+@frame // new FRAME
+M=D    // FRAME = *LCL  			<<< both point on return value
+@5     // A=5
+D=D-A  // D=FRAME-5
+A=D    // A=FRAME-5
+D=M    // D=*(FRAME-5)
+@ret   // new RET                       
+M=D    // RET = *(FRAME-5) 			<<<! (RET IP) loc for new SP and still return PC
+@SP    // 
+M=M-1  // SP-- 						<<< SP now points to return value
+A=M    // A=SP--
+D=M    // D=*SP--                       now holds return value
+@ARG   //
+A=M    // A=*ARG
+M=D    // *ARG = pop // *ARG=*SP-- 	<<<! return val now moved to ARG (top of frame)
+@ARG   // 
+D=M+1  // D=ARG++
+@SP    // A=SP                      
+M=D    // SP = ARG+1 // SP=ARG++	<<<!   set SP to one below arg (which holds return val)
 @frame
 D=M
 @1
@@ -167,7 +167,7 @@ D=D-A
 A=D
 D=M
 @THAT
-M=D // THAT = *(FRAME-1)
+M=D // THAT = *(FRAME-1)			<<<! restore THAT
 @frame
 D=M
 @2
@@ -175,7 +175,7 @@ D=D-A
 A=D
 D=M
 @THIS
-M=D // THIS = *(FRAME-2)
+M=D // THIS = *(FRAME-2)			<<<! restore THIS
 @frame
 D=M
 @3
@@ -183,7 +183,7 @@ D=D-A
 A=D
 D=M
 @ARG
-M=D // ARG = *(FRAME-3)
+M=D // ARG = *(FRAME-3)			<<<! restore ARG
 @frame
 D=M
 @4
@@ -191,9 +191,9 @@ D=D-A
 A=D
 D=M
 @LCL
-M=D // LCL = *(FRAME-4)
+M=D // LCL = *(FRAME-4)			<<<! restore LCL
 @ret
-A=M
+A=M //							<<< jump to *ret stored return IP below ret val							
 0;JMP
 
 // label IF_FALSE

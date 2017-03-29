@@ -108,19 +108,19 @@ A=M
 M=D
 @SP
 M=M+1
-@LCL // RETURN START: *FRAME = *LCL
-D=M
-@FRAME
-M=D
-@SP // *ARG=*(*SP-1) RETURN value placed
-M=M-1
-A=M
-D=M
+@LCL   // RETURN START: *FRAME = *LCL
+D=M    // D=*LCL
+@FRAME // new FRAME
+M=D    // ^^ FRAME = *LCL <<<! frame saved
+@SP    // *ARG=*(*SP-1) RETURN value placed <<<!!
+M=M-1  // SP--
+A=M    // A=SP--
+D=M    // D=*SP-- 
 @ARG
-A=M
-M=D
-@ARG // *SP=*ARG+1
-D=M+1
+A=M    // A=*ARG
+M=D    // *ARG=*SP-- <<<
+@ARG   // *SP=*ARG+1
+D=M+1  // 
 @SP
 M=D
 @FRAME // *THAT=*(FRAME-1)
