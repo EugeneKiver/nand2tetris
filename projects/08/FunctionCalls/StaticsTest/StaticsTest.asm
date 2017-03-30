@@ -63,7 +63,7 @@ A=M
 M=D
 @SP
 M=M+1
-@16 // C_POP static 0
+@Class1.0 // C_POP static 0
 D=A
 @0
 D=D+A
@@ -86,7 +86,7 @@ A=M
 M=D
 @SP
 M=M+1
-@16 // C_POP static 1
+@Class1.1 // C_POP static 1
 D=A
 @1
 D=D+A
@@ -159,7 +159,7 @@ A=D-A
 A=M
 0; JMP
 (Class1.get) // Class1.C_FUNCTION8
-@16 // C_PUSH static 0
+@Class1.0 // C_PUSH static 0
 D=A
 @0
 D=D+A
@@ -170,7 +170,7 @@ A=M
 M=D
 @SP
 M=M+1
-@16 // C_PUSH static 1
+@Class1.1 // C_PUSH static 1
 D=A
 @1
 D=D+A
@@ -253,7 +253,7 @@ A=M
 M=D
 @SP
 M=M+1
-@16 // C_POP static 0
+@Class2.0 // C_POP static 0
 D=A
 @0
 D=D+A
@@ -276,7 +276,7 @@ A=M
 M=D
 @SP
 M=M+1
-@16 // C_POP static 1
+@Class2.1 // C_POP static 1
 D=A
 @1
 D=D+A
@@ -349,7 +349,7 @@ A=D-A
 A=M
 0; JMP
 (Class2.get) // Class2.C_FUNCTION8
-@16 // C_PUSH static 0
+@Class2.0 // C_PUSH static 0
 D=A
 @0
 D=D+A
@@ -360,7 +360,7 @@ A=M
 M=D
 @SP
 M=M+1
-@16 // C_PUSH static 1
+@Class2.1 // C_PUSH static 1
 D=A
 @1
 D=D+A
