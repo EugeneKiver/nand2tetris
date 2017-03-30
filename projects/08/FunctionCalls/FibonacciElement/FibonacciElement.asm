@@ -2,7 +2,7 @@
 D=A
 @SP
 M=D
-@RETURN-Sys.init // C_CALL Sys.init 0
+@RETURN-Sys.init0 // C_CALL Sys.init 0
 D=A // push return-address
 @SP
 A=M
@@ -50,7 +50,7 @@ D=M
 M=D
 @Sys.init // end of call to Sys.init
 0; JMP
-(RETURN-Sys.init)
+(RETURN-Sys.init0)
 (Main.fibonacci) // Main.C_FUNCTION1
 @ARG // C_PUSH argument 0
 D=M
@@ -108,19 +108,19 @@ A=M
 M=D
 @SP
 M=M+1
-@LCL   // RETURN START: *FRAME = *LCL
-D=M    // D=*LCL
-@FRAME // new FRAME
-M=D    // ^^ FRAME = *LCL <<<! frame saved
-@SP    // *ARG=*(*SP-1) RETURN value placed <<<!!
-M=M-1  // SP--
-A=M    // A=SP--
-D=M    // D=*SP-- 
+@LCL // RETURN START: *FRAME = *LCL
+D=M
+@FRAME
+M=D
+@SP // *ARG=*(*SP-1) RETURN value placed
+M=M-1
+A=M
+D=M
 @ARG
-A=M    // A=*ARG
-M=D    // *ARG=*SP-- <<<
-@ARG   // *SP=*ARG+1
-D=M+1  // 
+A=M
+M=D
+@ARG // *SP=*ARG+1
+D=M+1
 @SP
 M=D
 @FRAME // *THAT=*(FRAME-1)
@@ -187,7 +187,7 @@ A=M
 D=M
 A=A-1
 M=M-D
-@RETURN-Main.fibonacci // C_CALL Main.fibonacci 1
+@RETURN-Main.fibonacci14 // C_CALL Main.fibonacci 1
 D=A // push return-address
 @SP
 A=M
@@ -235,7 +235,7 @@ D=M
 M=D
 @Main.fibonacci // end of call to Main.fibonacci
 0; JMP
-(RETURN-Main.fibonacci)
+(RETURN-Main.fibonacci14)
 @ARG // C_PUSH argument 0
 D=M
 @0
@@ -261,7 +261,7 @@ A=M
 D=M
 A=A-1
 M=M-D
-@RETURN-Main.fibonacci // C_CALL Main.fibonacci 1
+@RETURN-Main.fibonacci18 // C_CALL Main.fibonacci 1
 D=A // push return-address
 @SP
 A=M
@@ -309,7 +309,7 @@ D=M
 M=D
 @Main.fibonacci // end of call to Main.fibonacci
 0; JMP
-(RETURN-Main.fibonacci)
+(RETURN-Main.fibonacci18)
 @SP // ADD
 D=M
 M=D-1
@@ -378,7 +378,7 @@ A=M
 M=D
 @SP
 M=M+1
-@RETURN-Main.fibonacci // C_CALL Main.fibonacci 1
+@RETURN-Main.fibonacci3 // C_CALL Main.fibonacci 1
 D=A // push return-address
 @SP
 A=M
@@ -426,7 +426,7 @@ D=M
 M=D
 @Main.fibonacci // end of call to Main.fibonacci
 0; JMP
-(RETURN-Main.fibonacci)
+(RETURN-Main.fibonacci3)
 (Sys.init$WHILE) // LABEL
 @Sys.init$WHILE // GOTO
 0;JMP
