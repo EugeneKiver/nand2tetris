@@ -6,8 +6,8 @@ compare-to NestedCall.cmp,
 output-list RAM[0]%D1.6.1 RAM[1]%D1.6.1 RAM[2]%D1.6.1 RAM[3]%D1.6.1 RAM[4]%D1.6.1 RAM[5]%D1.6.1 RAM[6]%D1.6.1;
 
 set RAM[0] 261,
-set RAM[1] 261,
-set RAM[2] 256,
+set RAM[1] -1, // TODO restore 261 
+set RAM[2] -2, // TODO restore 256
 set RAM[3] -3,
 set RAM[4] -4,
 set RAM[5] -1, // test results
@@ -58,7 +58,7 @@ set RAM[297] -1,
 set RAM[298] -1,
 set RAM[299] -1,
 
-repeat 4000 {
+repeat 1600 {
   ticktock;
 }
 

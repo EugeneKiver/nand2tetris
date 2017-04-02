@@ -38,7 +38,7 @@ M=D
 @SP // ARG = SP-n-5
 M=M+1
 D=M
-@1
+@0
 D=D-A
 @5
 D=D-A

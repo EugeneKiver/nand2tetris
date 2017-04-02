@@ -38,7 +38,7 @@ M=D
 @SP // ARG = SP-n-5
 M=M+1
 D=M
-@1
+@0
 D=D-A
 @5
 D=D-A
@@ -63,17 +63,11 @@ A=M
 M=D
 @SP
 M=M+1
-@Class1.0 // C_POP static 0
-D=A
-@0
-D=D+A
-@R13
-M=D
-@SP
-AM=M-1
-D=M
-@R13
+@SP // C_POP static 0
+M=M-1
 A=M
+D=M
+@Class1.0
 M=D
 @ARG // C_PUSH argument 1
 D=M
@@ -86,17 +80,11 @@ A=M
 M=D
 @SP
 M=M+1
-@Class1.1 // C_POP static 1
-D=A
-@1
-D=D+A
-@R13
-M=D
-@SP
-AM=M-1
-D=M
-@R13
+@SP // C_POP static 1
+M=M-1
 A=M
+D=M
+@Class1.1
 M=D
 @0 // C_PUSH constant 0
 D=A
@@ -108,6 +96,12 @@ M=M+1
 @LCL // RETURN START: *FRAME = *LCL
 D=M
 @FRAME
+M=D
+@5 // RET = *(FRAME-5)
+D=D-A
+A=D
+D=M
+@RET
 M=D
 @SP // *ARG=*(*SP-1) RETURN value placed
 M=M-1
@@ -152,18 +146,11 @@ A=D
 D=M
 @LCL
 M=D
-@FRAME // return to *(FRAME-5)
-D=M
-@5
-A=D-A
+@RET // return to *(FRAME-5)
 A=M
 0; JMP
 (Class1.get) // Class1.C_FUNCTION8
 @Class1.0 // C_PUSH static 0
-D=A
-@0
-D=D+A
-A=D
 D=M
 @SP
 A=M
@@ -171,10 +158,6 @@ M=D
 @SP
 M=M+1
 @Class1.1 // C_PUSH static 1
-D=A
-@1
-D=D+A
-A=D
 D=M
 @SP
 A=M
@@ -192,6 +175,12 @@ M=M-D
 D=M
 @FRAME
 M=D
+@5 // RET = *(FRAME-5)
+D=D-A
+A=D
+D=M
+@RET
+M=D
 @SP // *ARG=*(*SP-1) RETURN value placed
 M=M-1
 A=M
@@ -235,10 +224,7 @@ A=D
 D=M
 @LCL
 M=D
-@FRAME // return to *(FRAME-5)
-D=M
-@5
-A=D-A
+@RET // return to *(FRAME-5)
 A=M
 0; JMP
 (Class2.set) // Class2.C_FUNCTION1
@@ -253,17 +239,11 @@ A=M
 M=D
 @SP
 M=M+1
-@Class2.0 // C_POP static 0
-D=A
-@0
-D=D+A
-@R13
-M=D
-@SP
-AM=M-1
-D=M
-@R13
+@SP // C_POP static 0
+M=M-1
 A=M
+D=M
+@Class2.0
 M=D
 @ARG // C_PUSH argument 1
 D=M
@@ -276,17 +256,11 @@ A=M
 M=D
 @SP
 M=M+1
-@Class2.1 // C_POP static 1
-D=A
-@1
-D=D+A
-@R13
-M=D
-@SP
-AM=M-1
-D=M
-@R13
+@SP // C_POP static 1
+M=M-1
 A=M
+D=M
+@Class2.1
 M=D
 @0 // C_PUSH constant 0
 D=A
@@ -298,6 +272,12 @@ M=M+1
 @LCL // RETURN START: *FRAME = *LCL
 D=M
 @FRAME
+M=D
+@5 // RET = *(FRAME-5)
+D=D-A
+A=D
+D=M
+@RET
 M=D
 @SP // *ARG=*(*SP-1) RETURN value placed
 M=M-1
@@ -342,18 +322,11 @@ A=D
 D=M
 @LCL
 M=D
-@FRAME // return to *(FRAME-5)
-D=M
-@5
-A=D-A
+@RET // return to *(FRAME-5)
 A=M
 0; JMP
 (Class2.get) // Class2.C_FUNCTION8
 @Class2.0 // C_PUSH static 0
-D=A
-@0
-D=D+A
-A=D
 D=M
 @SP
 A=M
@@ -361,10 +334,6 @@ M=D
 @SP
 M=M+1
 @Class2.1 // C_PUSH static 1
-D=A
-@1
-D=D+A
-A=D
 D=M
 @SP
 A=M
@@ -382,6 +351,12 @@ M=M-D
 D=M
 @FRAME
 M=D
+@5 // RET = *(FRAME-5)
+D=D-A
+A=D
+D=M
+@RET
+M=D
 @SP // *ARG=*(*SP-1) RETURN value placed
 M=M-1
 A=M
@@ -425,10 +400,7 @@ A=D
 D=M
 @LCL
 M=D
-@FRAME // return to *(FRAME-5)
-D=M
-@5
-A=D-A
+@RET // return to *(FRAME-5)
 A=M
 0; JMP
 (Sys.init) // Sys.C_FUNCTION1
@@ -482,7 +454,7 @@ M=D
 @SP // ARG = SP-n-5
 M=M+1
 D=M
-@1
+@2
 D=D-A
 @5
 D=D-A
@@ -557,7 +529,7 @@ M=D
 @SP // ARG = SP-n-5
 M=M+1
 D=M
-@1
+@2
 D=D-A
 @5
 D=D-A
@@ -618,7 +590,7 @@ M=D
 @SP // ARG = SP-n-5
 M=M+1
 D=M
-@1
+@0
 D=D-A
 @5
 D=D-A
@@ -667,7 +639,7 @@ M=D
 @SP // ARG = SP-n-5
 M=M+1
 D=M
-@1
+@0
 D=D-A
 @5
 D=D-A
