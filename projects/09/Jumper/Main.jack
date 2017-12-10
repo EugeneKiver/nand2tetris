@@ -1,0 +1,12 @@
+// Jumper game Nand2Tetris 09
+
+/** Initializes a new Jumper game and starts running it. */
+class Main {
+    function void main() {
+        var JumperGame game;
+        let game = JumperGame.new();
+        do game.run();
+        do game.dispose();
+        return;
+    }
+}
