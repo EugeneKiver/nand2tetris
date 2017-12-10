@@ -15,7 +15,7 @@ class JumperGame {
    constructor JumperGame new() {
       // Creates a 30 by 30 pixels jumper and positions it at the top-left
       // of the screen.
-      let jumper = Jumper.new(0, 0, 30);
+      let jumper = Jumper.new(0, 0, 16);
       let direction = 0;  // initial state is no movement
       return this;
    }

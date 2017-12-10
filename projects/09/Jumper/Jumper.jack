@@ -5,7 +5,7 @@ class Jumper {
 
    field int x, y; // screen location of the jumper's top-left corner
    field int size; // length of this jumper, in pixels
-
+   field int memAddress;
    /** Constructs a new jumper with a given location and size. */
    constructor Jumper new(int Ax, int Ay, int Asize) {
       let x = Ax;
@@ -24,9 +24,54 @@ class Jumper {
    /** Draws the jumper on the screen. */
    method void draw() {
       do Screen.setColor(true);
-      do Screen.drawRectangle(x, y, x + size, y + size);
+      //do Screen.drawRectangle(x, y, x + size, y + size);
+	  do drawStanding(x);
       return;
    }
+   
+   /** Draws standing jumper facing right */
+   method void drawStanding(int location) {
+	let memAddress = 16384+location;
+	do Memory.poke(memAddress+0, 992);
+	do Memory.poke(memAddress+32, 8176);
+	do Memory.poke(memAddress+64, 1648);
+	do Memory.poke(memAddress+96, 6696);
+	do Memory.poke(memAddress+128, 8296);
+	do Memory.poke(memAddress+160, 4120);
+	do Memory.poke(memAddress+192, 4064);
+	do Memory.poke(memAddress+224, 1168);
+	do Memory.poke(memAddress+256, 8072);
+	do Memory.poke(memAddress+288, 11076);
+	do Memory.poke(memAddress+320, 12260);
+	do Memory.poke(memAddress+352, 10212);
+	do Memory.poke(memAddress+384, 16380);
+	do Memory.poke(memAddress+416, 3696);
+	do Memory.poke(memAddress+448, 7224);
+	do Memory.poke(memAddress+480, 15420);
+	return;
+}
+
+	/** Draws standing jumper facing left*/
+	method void drawStandingMirror(int location) {
+	let memAddress = 16384+location;
+	do Memory.poke(memAddress+0, 1984);
+	do Memory.poke(memAddress+32, 4088);
+	do Memory.poke(memAddress+64, 3680);
+	do Memory.poke(memAddress+96, 5208);
+	do Memory.poke(memAddress+128, 5636);
+	do Memory.poke(memAddress+160, 6152);
+	do Memory.poke(memAddress+192, 2032);
+	do Memory.poke(memAddress+224, 2336);
+	do Memory.poke(memAddress+256, 4600);
+	do Memory.poke(memAddress+288, 8916);
+	do Memory.poke(memAddress+320, 10228);
+	do Memory.poke(memAddress+352, 10212);
+	do Memory.poke(memAddress+384, 16380);
+	do Memory.poke(memAddress+416, 3696);
+	do Memory.poke(memAddress+448, 7224);
+	do Memory.poke(memAddress+480, 15420);
+	return;
+}
 
    /** Erases the jumper from the screen. */
    method void erase() {
