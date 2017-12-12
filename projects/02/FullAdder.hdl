@@ -13,11 +13,7 @@ CHIP FullAdder {
         carry;   // Left bit of a + b + c
 
     PARTS:
-	HalfAdder(a=b, b=c, sum=ha-sum, carry=ha-carry);
-	DMux(in=ha-sum, sel=a, a=dmux-sum0, b=dmux-sum1);
-	DMux(in=ha-carry, sel=a, a=dmux-carry0, b=dmux-carry1);
-	Not(in=dmux-sum1, out=n-dmux-sum1);
-	Or(a=dmux-carry1, b=dmux-sum1, out=or-dmux-carry1);
-    Mux(a=dmux-sum0, b=n-dmux-sum1, sel=a, out=sum);
-	Mux(a=dmux-carry0, b=or-dmux-carry1, sel=a, out=carry);
+    HalfAdder(a=a, b=b, sum=w1, carry=c1);
+    HalfAdder(a=w1, b=c, sum=sum, carry=c2);
+	Or(a=c1, b=c2, out=carry);
 }
