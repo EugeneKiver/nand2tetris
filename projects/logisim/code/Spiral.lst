@@ -1,0 +1,244 @@
+             // Spiral.asm -- Draw a square spiral on the screen.
+             
+             MACRO	@maskTable	// Allocate 'maskTable' at 100
+             	@100
+             ENDM
+             
+             	@maskTable	// Initialize maskTable
+    0   100  +1 	@100
+    1  EC10  	D=A
+    2    16  	@pixel
+    3  E308  	M=D
+    4    17  	@mask
+    5  EFC8  	M=1
+    6        (MASK_LOOP)
+    6    17  	@mask
+    7  FC10  	D=M
+    8    16  	@pixel
+    9  FC20  	A=M
+   10  E308  	M=D
+   11    16  	@pixel
+   12  FDC8  	M=M+1
+   13    17  	@mask
+   14  FC10  	D=M
+   15  F098  	MD=D+M
+   16     6  	@MASK_LOOP
+   17  E305  	D;JNE
+             
+   18     2  	@2			// 'grow' = side growth factor
+   19  EC10  	D=A
+   20    18  	@grow
+   21  E308  	M=D
+   22    19  	@size		// 'size' = current side length
+   23  E308  	M=D
+             
+   24 16384  	@SCREEN		// 'ptr' = middle screen word
+   25  EC10  	D=A
+   26  4112  	@4112		// 128 rows + 16 words
+   27  E090  	D=D+A
+   28    20  	@ptr
+   29  E308  	M=D
+             
+   30    16  	@pixel		// 'pixel = pixel mask index.
+   31  EA88  	M=0
+   32    17  	@mask		// 'mask' = pixel mask.		INVARIENT: mask == maskTable[pixel]
+   33  EFC8  	M=1
+             
+   34        (GO_RIGHT)
+   34    19  	@size		// Draw 'size' pixels moving right
+   35  FC10  	D=M
+   36    21  	@count
+   37  E308  	M=D
+             
+   38        (RIGHT_LOOP)
+   38    17  	@mask		// Set pixel.
+   39  FC10  	D=M
+   40    20  	@ptr
+   41  FC20  	A=M
+   42  F548  	M=M|D
+             
+   43    16  	@pixel		// Move one pixel right.
+   44  FDC8  	M=M+1
+   45    17  	@mask
+   46  F098  	MD=D+M
+   47    55  	@RIGHT_CONTINUE
+   48  E305  	D;JNE
+             
+   49    20  	@ptr		// Move to next word right.
+   50  FDC8  	M=M+1
+   51    16  	@pixel
+   52  EA88  	M=0
+   53    17  	@mask
+   54  EFC8  	M=1
+             
+   55        (RIGHT_CONTINUE)
+   55    21  	@count
+   56  FC98  	MD=M-1
+   57    38  	@RIGHT_LOOP
+   58  E305  	D;JNE
+             
+   59    18  	@grow		// Increase side length.
+   60  FC10  	D=M
+   61    19  	@size
+   62  F088  	M=M+D
+             
+   63        (GO_UP)
+   63    19  	@size		// Draw 'size' pixels moving up.
+   64  FC10  	D=M
+   65    21  	@count
+   66  E308  	M=D
+             
+   67        (UP_LOOP)
+   67    17  	@mask		// Set pixel.
+   68  FC10  	D=M
+   69    20  	@ptr
+   70  FC20  	A=M
+   71  F548  	M=M|D
+             
+   72    32  	@32
+   73  EC10  	D=A
+   74    20  	@ptr		// Move one row up.
+   75  F1D8  	MD=M-D
+             
+   76 16384  	@SCREEN		// Still on the screen?
+   77  E4D0  	D=D-A
+   78   150  	@HALT
+   79  E304  	D;JLT
+             
+   80    21  	@count
+   81  FC98  	MD=M-1
+   82    67  	@UP_LOOP
+   83  E305  	D;JNE
+             
+   84    18  	@grow		// Increase side length.
+   85  FC10  	D=M
+   86    19  	@size
+   87  F088  	M=M+D
+             
+   88        (GO_LEFT)
+   88    19  	@size		// Draw 'size' pixels moving left.
+   89  FC10  	D=M
+   90    21  	@count
+   91  E308  	M=D
+             
+   92        (LEFT_LOOP)
+   92    17  	@mask		// Set pixel.
+   93  FC10  	D=M
+   94    20  	@ptr
+   95  FC20  	A=M
+   96  F548  	M=M|D
+             
+   97    16  	@pixel		// Move one pixel left.
+   98  FC98  	MD=M-1
+   99   107  	@LEFT_CONTINUE
+  100  E303  	D;JGE
+             
+  101    20  	@ptr		// Move to next word left.
+  102  FC88  	M=M-1
+  103    15  	@15
+  104  EC10  	D=A
+  105    16  	@pixel
+  106  E308  	M=D
+             
+  107        (LEFT_CONTINUE)
+  107    16  	@pixel		// mask = maskTable[pixel]
+  108  FC10  	D=M
+             	@maskTable
+  109   100  +1 	@100
+  110  E0A0  	A=A+D
+  111  FC10  	D=M
+  112    17  	@mask
+  113  E308  	M=D
+             
+  114    21  	@count
+  115  FC98  	MD=M-1
+  116    92  	@LEFT_LOOP
+  117  E305  	D;JNE
+             
+  118    18  	@grow		// Increase side length.
+  119  FC10  	D=M
+  120    19  	@size
+  121  F088  	M=M+D
+             
+  122        (GO_DOWN)
+  122    19  	@size		// Draw 'size' pixels moving down.
+  123  FC10  	D=M
+  124    21  	@count
+  125  E308  	M=D
+             
+  126        (DOWN_LOOP)
+  126    17  	@mask		// Set pixel.
+  127  FC10  	D=M
+  128    20  	@ptr
+  129  FC20  	A=M
+  130  F548  	M=M|D
+             
+  131    32  	@32
+  132  EC10  	D=A
+  133    20  	@ptr		// Move one row down.
+  134  F098  	MD=M+D
+             
+  135 24576  	@KBD		// Still on the screen?
+  136  E4D0  	D=D-A
+  137   150  	@HALT
+  138  E303  	D;JGE
+             
+  139    21  	@count
+  140  FC98  	MD=M-1
+  141   126  	@DOWN_LOOP
+  142  E305  	D;JNE
+             
+  143    18  	@grow		// Increase side length.
+  144  FC10  	D=M
+  145    19  	@size
+  146  F088  	M=M+D
+             
+  147    34  	@GO_RIGHT
+  148  EA87  	0;JMP
+             
+  149   150  	@HALT
+  150        (HALT)
+  150  EA87  	0;JMP
+             
+
+Data Symbols
+
+   21 D  count
+               36   55   65   80   90  114  124  139
+   18 D  grow
+               20   59   84  118  143
+   17 D  mask
+                4    6   13   32   38   45   53   67   92  112  126
+   16 D  pixel
+                2    8   11   30   43   51   97  105  107
+   20 D  ptr
+               28   40   49   69   74   94  101  128  133
+   19 D  size
+               22   34   61   63   86   88  120  122  145
+
+Code Symbols
+
+  126 C  DOWN_LOOP
+              141
+  122 C  GO_DOWN
+   88 C  GO_LEFT
+   34 C  GO_RIGHT
+              147
+   63 C  GO_UP
+  150 C  HALT
+               78  137  149
+  107 C  LEFT_CONTINUE
+               99
+   92 C  LEFT_LOOP
+              116
+    6 C  MASK_LOOP
+               16
+   55 C  RIGHT_CONTINUE
+               47
+   38 C  RIGHT_LOOP
+               57
+   67 C  UP_LOOP
+               82
+
+Code size =   151 (0x0097)
+Data size =    22 (0x0016)

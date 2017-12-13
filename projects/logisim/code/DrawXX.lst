@@ -1,0 +1,152 @@
+             // Draw an X on the screen.
+             
+             // The Screen is 256 rows of 32 words per row.
+             // Bit 0 in a screen word is the LEFT-MOST display pixel.
+             
+             // Draw line from Top-Left to Bottom-Right.
+             
+    0    16  	@offset		// offset is the starting pixel value
+    1  EFC8  	M=1
+             
+    2        (DRAW_X)
+    2 16384  	@SCREEN		// ptr = SCREEN  (Word containing Upper-left pixel).
+    3  EC10  	D=A
+    4    17  	@ptr
+    5  E308  	M=D
+             
+    6    16  	@offset		// pix = offset  (starting pixel for this X).
+    7  FC10  	D=M
+    8    18  	@pix
+    9  E308  	M=D
+   10    14  	@PIX_LOOP1
+   11  EA87  	0;JMP
+             
+   12        (WORD_LOOP1)
+   12    18  	@pix		// pix = 1  (starting pixel for next column).
+   13  EFC8  	M=1
+             
+   14        (PIX_LOOP1)
+   14    18  	@pix		// *ptr = pix  (Set the pixel).
+   15  FC10  	D=M
+   16    17  	@ptr
+   17  FC20  	A=M
+   18  F548  	M=M|D
+             
+   19  EC10  	D=A			// ptr = ptr+32  (ptr value already in A).
+   20    32  	@32			// This moves ptr to the same column in the next row.
+   21  E090  	D=D+A
+   22    17  	@ptr
+   23  E308  	M=D
+             
+   24 24575  	@24575		// if (ptr > last screen address) break;
+   25  E4D0  	D=D-A
+   26    37  	@BREAK1
+   27  E301  	D;JGT
+             
+   28    18  	@pix		// Shift pix left 1 bit.  This will shift the displayed pixel right 1 position.
+   29  FC10  	D=M
+   30  F098  	MD=M+D		// Sets BOTH pix and D = pix+pix.
+             
+   31    14  	@PIX_LOOP1	// Draw the next pixel if pix still has a bit set.  (Left shifting 0x8000
+   32  E305  	D;JNE		// results in 0.)
+             
+   33    17  	@ptr		// The rightmost pixel in this word column has been set, move ptr one screen word
+   34  FDC8  	M=M+1		// to the right.
+   35    12  	@WORD_LOOP1
+   36  EA87  	0;JMP
+             
+   37        (BREAK1)
+             
+             // Draw line from Lower-Left to Upper-Right.
+             
+   37 24544  	@24544		// ptr = SCREEN+8192-32  (Word containing Lower-Left pixel).
+   38  EC10  	D=A
+   39    17  	@ptr
+   40  E308  	M=D
+             
+   41    16  	@offset		// pix = offset  (starting pixel for this X).
+   42  FC10  	D=M
+   43    18  	@pix
+   44  E308  	M=D
+   45    49  	@PIX_LOOP2
+   46  EA87  	0;JMP
+             
+   47        (WORD_LOOP2)
+   47    18  	@pix		// pix = 1  (starting pixel for next column).
+   48  EFC8  	M=1
+             
+   49        (PIX_LOOP2)
+   49    18  	@pix		// *ptr = pix  (Set the pixel).
+   50  FC10  	D=M
+   51    17  	@ptr
+   52  FC20  	A=M
+   53  F548  	M=M|D
+             
+   54  EC10  	D=A			// ptr = ptr-32  (ptr value already in A).
+   55    32  	@32			// This moves ptr to the same column in the previous row.
+   56  E4D0  	D=D-A
+   57    17  	@ptr
+   58  E308  	M=D
+             
+   59 16384  	@SCREEN		// if (ptr < first screen address) break;
+   60  E4D0  	D=D-A
+   61    72  	@BREAK2
+   62  E304  	D;JLT
+             
+   63    18  	@pix		// Shift pix left 1 bit.  This will shift the displayed pixel right 1 position.
+   64  FC10  	D=M
+   65  F098  	MD=M+D		// Sets BOTH pix and D = pix+pix.
+             
+   66    49  	@PIX_LOOP2	// Draw the next pixel if pix still has a bit set.  (Left shifting 0x8000
+   67  E305  	D;JNE		// results in 0.)
+             
+   68    17  	@ptr		// The rightmost pixel in this word column has been set, move ptr one screen word
+   69  FDC8  	M=M+1		// to the right.
+   70    47  	@WORD_LOOP2
+   71  EA87  	0;JMP
+             
+   72        (BREAK2)
+   72    16  	@offset		// Draw the X again, one pixel to the right.
+   73  FC10  	D=M
+   74  F098  	MD=M+D
+   75  FC10  	D=M
+   76  F098  	MD=M+D
+   77     2  	@DRAW_X
+   78  E305  	D;JNE		// Continue until offset overflows.
+             
+   79    80  	@HALT
+   80        (HALT)
+   80  EA87  	0;JMP
+             
+             
+
+Data Symbols
+
+   16 D  offset
+                0    6   41   72
+   18 D  pix
+                8   12   14   28   43   47   49   63
+   17 D  ptr
+                4   16   22   33   39   51   57   68
+
+Code Symbols
+
+   37 C  BREAK1
+               26
+   72 C  BREAK2
+               61
+    2 C  DRAW_X
+               77
+   80 C  HALT
+               79
+   14 C  PIX_LOOP1
+               10   31
+   49 C  PIX_LOOP2
+               45   66
+   12 C  WORD_LOOP1
+               35
+   47 C  WORD_LOOP2
+               70
+
+Code size =    81 (0x0051)
+Data size =    19 (0x0013)

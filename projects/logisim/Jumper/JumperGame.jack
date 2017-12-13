@@ -1,0 +1,69 @@
+// Jumper game Nand2Tetris 09
+
+/**
+ * Implements the Jumper game.
+ * This simple game allows the user to move a character around jump
+ * the screen, and change the jumper's size during the movement.
+ */
+
+class JumperGame {
+   field Jumper jumper; // the jumper of this game
+   field int direction; // the jumper's current direction: 
+                        // 0=none, 1=up, 2=down, 3=left, 4=right
+
+   /** Constructs a new Jumper Game. */
+   constructor JumperGame new() {
+      // Creates a 30 by 30 pixels jumper and positions it at the top-left
+      // of the screen.
+      let jumper = Jumper.new(0, 0, 16);
+      let direction = 0;  // initial state is no movement
+      return this;
+   }
+
+   /** Disposes this game. */
+   method void dispose() {
+      do jumper.dispose();
+      do Memory.deAlloc(this);
+      return;
+   }
+
+   /** Moves the jumper in the current direction. */
+   method void moveJumper() {
+      if (direction = 1) { do jumper.moveUp(); }
+      if (direction = 2) { do jumper.moveDown(); }
+      if (direction = 3) { do jumper.moveLeft(); }
+      if (direction = 4) { do jumper.moveRight(); }
+      do Sys.wait(5);  // delays the next movement
+      return;
+   }
+
+   /** Runs the game: handles the user's inputs and moves the jumper accordingly */
+   method void run() {
+      var char key;  // the key currently pressed by the user
+      var boolean exit;
+      let exit = false;
+      
+      while (~exit) {
+         // waits for a key to be pressed
+         while (key = 0) {
+            let key = Keyboard.keyPressed();
+            do moveJumper();
+         }
+         if (key = 81)  { let exit = true; }     // q key
+         if (key = 131) { let direction = 1; }   // up arrow
+         if (key = 133) { let direction = 2; }   // down arrow
+         if (key = 130) { let direction = 3; }   // left arrow
+         if (key = 132) { let direction = 4; }   // right arrow
+
+         // waits for the key to be released
+         while (~(key = 0)) {
+            let key = Keyboard.keyPressed();
+            do moveJumper();
+         }
+     } // while
+     return;
+   }
+}
+
+
+
